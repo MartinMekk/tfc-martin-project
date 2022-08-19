@@ -1,10 +1,3 @@
-resource "google_storage_bucket" "martins-bucket" {
-  name = "martins-bucket"
-  location = var.gcp_region
-  force_destroy = true
-  uniform_bucket_level_access = true
-}
-
 resource "google_service_account" "default" {
   account_id   = "service-account-id"
   display_name = "Service Account"

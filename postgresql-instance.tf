@@ -1,8 +1,9 @@
 resource "google_sql_database_instance" "postgresql" {
-  name             = "martin-project-db1"
-  project          = var.gcp_project_id
-  region           = var.gcp_region
-  database_version = var.db_version
+  name                = "martin-project-db1"
+  project             = var.gcp_project_id
+  region              = var.gcp_region
+  database_version    = var.db_version
+  deletion_protection = false
 
   settings {
     tier              = var.db_tier
@@ -22,8 +23,8 @@ resource "google_sql_database_instance" "postgresql" {
     }
 
     backup_configuration {
-      enabled            = true
-      start_time         = "00:00"
+      enabled    = true
+      start_time = "00:00"
     }
 
     ip_configuration {

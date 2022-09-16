@@ -25,6 +25,6 @@ resource "google_iam_workload_identity_pool_provider" "github-actions-provider" 
 resource "google_project_iam_binding" "github-actions-binding" {
   members = ["serviceAccount:${google_service_account.github-actions-sa.email}"]
   project = var.gcp_project_id
-  role    = "roles/iam.workloadIdentityUser`"
+  role    = "roles/iam.workloadIdentityUser"
 }
 

@@ -23,7 +23,9 @@ resource "google_iam_workload_identity_pool_provider" "github-actions-provider" 
 }
 
 resource "google_project_iam_binding" "github-actions-binding" {
-  members = ["serviceAccount:${google_service_account.github-actions-sa.email}"]
+  members = [
+    "principalSet://iam.googleapis.com/projects/${var.gcp_project_id}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.github-actions-pool.id}/attribute.full/${var.gh_repo}"
+  ]
   project = var.gcp_project_id
   role    = "roles/iam.workloadIdentityUser"
 }

@@ -18,3 +18,10 @@ variable "gcp_zone" {
   type        = string
   description = "Google Cloud zone"
 }
+
+
+variable "gh_repo" {
+  type        = string
+  description = "GitHub repository"
+  default     = "https://github.com/martin-platform/backstage"
+}

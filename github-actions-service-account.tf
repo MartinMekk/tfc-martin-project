@@ -4,7 +4,7 @@ resource "google_service_account" "github-actions-sa" {
 }
 
 resource "google_iam_workload_identity_pool" "github-actions-pool" {
-  workload_identity_pool_id = "github-actions-pool"
+  workload_identity_pool_id = "github-actions-pool-2"
   display_name              = "GitHub Actions Pool"
 }
 

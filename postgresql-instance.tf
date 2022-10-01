@@ -3,7 +3,6 @@ resource "google_sql_database_instance" "postgresql" {
   project             = var.gcp_project_id
   region              = var.gcp_region
   database_version    = var.db_version
-  deletion_protection = false
 
   settings {
     tier              = var.db_tier

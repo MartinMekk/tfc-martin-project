@@ -3,6 +3,12 @@ resource "google_service_account" "github-actions-sa" {
   display_name = var.workload_identity_pool_sa_display_name
 }
 
+resource "google_project_iam_member" "gtithub-actions-sa-iam" {
+  member  = "serviceAccount:${google_service_account.github-actions-sa.email}"
+  project = var.gcp_project_id
+  role    = "roles/artifactregistry.writer"
+}
+
 resource "google_iam_workload_identity_pool" "github-actions-pool" {
   workload_identity_pool_id = var.workload_identity_pool_id
   display_name              = var.workload_identity_pool_display_name

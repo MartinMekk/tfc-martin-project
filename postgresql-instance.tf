@@ -1,8 +1,8 @@
 resource "google_sql_database_instance" "postgresql" {
-  name                = "martin-project-db1"
-  project             = var.gcp_project_id
-  region              = var.gcp_region
-  database_version    = var.db_version
+  name             = "martin-project-db1"
+  project          = var.gcp_project_id
+  region           = var.gcp_region
+  database_version = var.db_version
 
   settings {
     tier              = var.db_tier
@@ -42,17 +42,4 @@ resource "google_sql_database" "postgresql_db" {
   instance  = google_sql_database_instance.postgresql.name
   charset   = var.db_charset
   collation = var.db_collation
-}
-
-# create user
-resource "random_id" "user_password" {
-  byte_length = 32
-}
-
-resource "google_sql_user" "postgresql_user" {
-  name     = var.db_user_name
-  project  = var.gcp_project_id
-  instance = google_sql_database_instance.postgresql.name
-  host     = var.db_user_host
-  password = var.db_user_password == "" ? random_id.user_password.hex : var.db_user_password
 }

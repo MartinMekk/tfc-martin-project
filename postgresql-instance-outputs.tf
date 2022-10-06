@@ -13,8 +13,3 @@ output db_instance_username {
   description = "Name of the database user"
   value       = var.db_user_name
 }
-
-output db_instance_generated_user_password {
-  description = "The auto generated default user password if no input password was provided"
-  value       = random_id.user_password.hex
-}

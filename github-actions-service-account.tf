@@ -26,7 +26,7 @@ resource "google_iam_workload_identity_pool_provider" "github-actions-provider" 
 }
 
 resource "google_service_account_iam_member" "github-actions-sa-role" {
-  service_account_id = google_service_account.github-actions-sa.name
+  service_account_id = google_service_account.github-actions-sa.id
   role               = "roles/iam.workloadIdentityUser"
   member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github-actions-pool.name}/attribute.full/${var.workload_identity_pool_binding_gh_repo}"
   depends_on         = [google_iam_workload_identity_pool.github-actions-pool]

@@ -39,9 +39,6 @@ resource "google_iam_workload_identity_pool_provider" "github-actions-provider" 
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
   }
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 module "github_actions_auth" {

@@ -1,3 +1,12 @@
+locals {
+  github_auth_to_gcp_sa_mapping = {
+    github-actions-container-push = {
+      sa_name   = google_service_account.github-actions-sa.id
+      attribute = "attribute.repository/${var.gh_repo}"
+    }
+  }
+}
+
 resource "google_service_account" "github-actions-sa" {
   account_id   = var.workload_identity_pool_sa_account_id
   display_name = var.workload_identity_pool_sa_display_name
@@ -35,9 +44,11 @@ resource "google_iam_workload_identity_pool_provider" "github-actions-provider" 
   }
 }
 
-resource "google_service_account_iam_member" "github-actions-sa-role" {
-  service_account_id = google_service_account.github-actions-sa.name
-  role               = "roles/iam.workloadIdentityUser"
-  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github-actions-pool.name}/attribute.full/${var.workload_identity_pool_binding_gh_repo}"
-  depends_on         = [google_iam_workload_identity_pool.github-actions-pool]
+module "github_actions_auth" {
+  source      = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
+  version     = "3.0.0"
+  pool_id     = var.workload_identity_pool_id
+  provider_id = var.workload_identity_pool_provider_id
+  project_id  = var.gcp_project_id
+  sa_mapping  = local.github_auth_to_gcp_sa_mapping
 }

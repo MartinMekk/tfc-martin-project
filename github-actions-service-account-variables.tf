@@ -10,7 +10,7 @@ variable "workload_identity_pool_sa_display_name" {
 
 variable "workload_identity_pool_id" {
   description = "The ID for the identity pool used for federating with GitHub Actions"
-  default     = "github-actions-identity-pool-2"
+  default     = "github-actions-identity-pool-3"
 }
 
 variable "workload_identity_pool_display_name" {

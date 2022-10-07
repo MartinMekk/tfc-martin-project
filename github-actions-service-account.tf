@@ -18,26 +18,6 @@ resource "google_project_iam_member" "gtithub-actions-sa-iam" {
   role    = "roles/artifactregistry.writer"
 }
 
-resource "google_iam_workload_identity_pool" "github-actions-pool" {
-  workload_identity_pool_id = var.workload_identity_pool_id
-  display_name              = var.workload_identity_pool_display_name
-}
-
-resource "google_iam_workload_identity_pool_provider" "github-actions-provider" {
-  workload_identity_pool_id          = google_iam_workload_identity_pool.github-actions-pool.workload_identity_pool_id
-  workload_identity_pool_provider_id = var.workload_identity_pool_provider_id
-  display_name                       = var.workload_identity_pool_provider_display_name
-  attribute_mapping                  = {
-    "google.subject"       = "assertion.sub"
-    "attribute.actor"      = "assertion.actor"
-    "attribute.repository" = "assertion.repository"
-    "attribute.aud"        = "assertion.aud"
-  }
-  oidc {
-    issuer_uri = "https://token.actions.githubusercontent.com"
-  }
-}
-
 module "github_actions_auth" {
   source      = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
   version     = "3.0.0"

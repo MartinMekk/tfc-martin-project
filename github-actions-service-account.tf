@@ -21,9 +21,6 @@ resource "google_project_iam_member" "gtithub-actions-sa-iam" {
 resource "google_iam_workload_identity_pool" "github-actions-pool" {
   workload_identity_pool_id = var.workload_identity_pool_id
   display_name              = var.workload_identity_pool_display_name
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "google_iam_workload_identity_pool_provider" "github-actions-provider" {

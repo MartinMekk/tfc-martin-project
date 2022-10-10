@@ -23,5 +23,5 @@ variable "gcp_zone" {
 variable "gh_repo" {
   type        = string
   description = "GitHub repository"
-  default     = "https://github.com/martin-platform/backstage"
+  default     = "martin-platform/backstage"
 }
